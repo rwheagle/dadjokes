@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jokes App</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
@@ -10,18 +11,33 @@
 <body>
   <div class="header">
     <h1>Jokes App</h1>
-    <button type="button" name="button" @click="startapp()">Refresh</button>
   </div>
-  <div class="application">
-    <h1>Welcome to my app</h1>
-    <div id="app">
-      <div id="jokes"></div>
+  <div id="app">
+    <div class="number">
+      <p>Number of Jokes (Up to 10):</p>
+      <input type="number" min="0" max="10" value="0" id="number" v-model="num" v-on:input="startapp"></input>
+      <button type="button" v-on:click="generateAllJokes">Generate All Jokes</button>
+    </div>
+    <div class="application">
+      <h1 v-if="jokes.length === 0">Welcome to my app</h1>
+      <div id="jokes">
+        <div class="joke" v-for="joke in jokes" :key=" joke.id">
+          <div class="text">
+            <p>{{joke.text}}</p>
+          </div>
+          <button type="button" v-on:click="generateJoke(joke.id)">Generate Joke</button>
+        </div>
+      </div>
     </div>
   </div>
   <div class="footer">
     <a href="https://github.com/rwheagle/dadjokes">Github</a>
   </div>
-  <script text="type/javascript" src="/script.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/script.js"></script>
 </body>
 
 </html>
